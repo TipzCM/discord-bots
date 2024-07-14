@@ -1,0 +1,4 @@
+/node_modules/
+.cred
+config.json
+valid-users.json
