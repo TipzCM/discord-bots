@@ -1,4 +1,4 @@
-const { Events, MessageEmbed } = require('discord.js');
+const { Events, EmbedBuilder } = require('discord.js');
 
 module.exports = {
     name: Events.GuildMemberRemove,
@@ -13,14 +13,19 @@ module.exports = {
             return;
         }
 
-        const msg = new MessageEmbed()
-            .setAuthor('Hello World Bot')
+        const msg = new EmbedBuilder()
+            .setAuthor({
+                "name": "Hello world bot"
+            })
+            .setTitle('Goodbye message')
             .setDescription(`We're so sad to see ${memberName} leave us; we hardly got to know them.`)
             .setColor('#ff0000');
         
         // this is our #general channel
         guild.channels.cache.get('1176196328292888672')
-            .send(msg)
+            .send({
+                embeds: [msg]
+            })
             .catch(err=> {
                 console.error(err);
             });

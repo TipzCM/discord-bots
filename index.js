@@ -1,6 +1,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Events, GatewayIntentBits, IntentsBitField, Collection } = require('discord.js');
+const { Client, Events, GatewayIntentBits, IntentsBitField, Collection, EmbedBuilder } = require('discord.js');
 const { token } = require('./config.json');
 
 
@@ -11,6 +11,9 @@ intents.add(
     IntentsBitField.Flags.Guilds,
     IntentsBitField.Flags.GuildMessages, // to send messages
     IntentsBitField.Flags.MessageContent, // to read messages (for future?)
+	GatewayIntentBits.DirectMessages,
+	GatewayIntentBits.DirectMessageTyping,
+	GatewayIntentBits.DirectMessageReactions,
     IntentsBitField.Flags.GuildMembers   // for greetings/goodbyes
  );
 
@@ -41,6 +44,7 @@ for (const folder of commandFolders) {
 }
 
 // events
+//https://gist.github.com/Iliannnn/f4985563833e2538b1b96a8cb89d72bb
 const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
@@ -53,7 +57,6 @@ for (const file of eventFiles) {
 		client.on(event.name, (...args) => event.execute(...args));
 	}
 }
-
 
 // Log in to Discord with your client's token
 client.login(token);
