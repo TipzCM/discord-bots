@@ -1,20 +1,14 @@
 const { Events } = require('discord.js');
-const { dirname } = require('path');
-const { users } = require(dirname(require.main.filename) + '/valid-users.json');
+const { isAllowedUser } = require('../other/allowedUsers');
 
-const allowedUsers = [];
-console.log("Allowed users include...");
-for (user of users) {
-    console.log(user.name);
-    allowedUsers.push(user.id);
-}
 
 module.exports = {
 	name: Events.InteractionCreate,
 	async execute(interaction) {
 		if (!interaction.isChatInputCommand()) return;
 
-        if (!allowedUsers.includes(interaction.user.id)) {
+        if (!isAllowedUser(interaction.user.id)) {
+			console.log(`${interaction.user.displayName} : ${interaction.user.id} tried to call an interaction, but they are a blocked user.`)
             // blocked user
             return;
         }

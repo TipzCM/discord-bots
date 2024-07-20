@@ -1,0 +1,13 @@
+{
+    "words": [
+        {
+            "word": "fuck",
+            "todelete": true,
+            "response": "no f bombs"
+        },
+        {
+            "word": "shit",
+            "response": "Tsk tsk."
+        }
+    ]
+}

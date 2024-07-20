@@ -19,7 +19,7 @@ module.exports = {
             .setAuthor({
                 "name": "Hello-world bot"
             })
-            .setTitle('Welcome Message')
+            .setTitle('Welcome!')
             .setDescription(`Welcome ${memberName} to Guelph's Discord Server!`)
             .setColor('#6495ed');
         
