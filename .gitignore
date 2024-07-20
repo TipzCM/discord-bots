@@ -2,3 +2,4 @@
 .cred
 config.json
 valid-users.json
+/logs/
