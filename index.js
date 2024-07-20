@@ -4,6 +4,7 @@ const { Client, Events, GatewayIntentBits, IntentsBitField, Collection, EmbedBui
 const { token } = require('./config.json');
 
 
+
 // Create a new client instance
 const intents = new IntentsBitField();
 intents.add(

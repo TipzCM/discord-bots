@@ -1,13 +1,32 @@
 {
     "words": [
         {
-            "word": "fuck",
+            "word": "nigger",
             "todelete": true,
-            "response": "no f bombs"
+            "response": "No bigotry!"
         },
         {
-            "word": "shit",
-            "response": "Tsk tsk."
+            "word": "spick",
+            "todelete": true,
+            "response": "No bigotry!"
+        },
+        {
+            "word": "fag",
+            "todelete": true,
+            "response": "No bigory!"
+        },
+        {
+            "word": "gook",
+            "todelete": true,
+            "response": "No bigotry!"
+        },
+        {
+            "word": "chink",
+            "acceptable": [{
+                "regex": "chink\\s\\w+\\s(\\w+|\\w+\\'s)\\sarmor"
+            }],
+            "todelete": true,
+            "response": "No bigotry!"
         }
     ]
 }

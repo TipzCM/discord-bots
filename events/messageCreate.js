@@ -1,21 +1,33 @@
 const { Events, EmbedBuilder } = require('discord.js');
 const { dirname } = require('path');
-//const { isAllowedUser } = require(dirname(require.main.filename) + '/other/allowedUsers.js');
 const { isAllowedUser } = require('../other/allowedUsers');
 const { words } = require(dirname(require.main.filename) + '/verboten-words.json');
 
 
-
 const bannedWords = {};
 for (word of words) {
-    bannedWords[word.word] = {
-        "response": word.response,
-        "todelete": word.todelete
-    }
+    bannedWords[word.word] = word;
 }
 
-const handleMessage = function(message, word) {
+/**
+ * Handle a banned word
+ */
+const handleBannedWord = function(message, word) {
     var userName = message.author.displayName;
+
+    var content = message.content;
+    if (word.acceptable) {
+        for (au of word.acceptable) {
+            if (au.regex) {
+                var withoutValidUsages = content.replace(new RegExp(au.regex, 'gim'), '');
+                if (withoutValidUsages.toLowerCase().indexOf(word.word) == -1) {
+                    // no longer contains;
+                    // this is valid text
+                    return;
+                }
+            }
+        }
+    }
 
     if (word.todelete) {
         message.delete().then(msg => {
@@ -32,21 +44,18 @@ const handleMessage = function(message, word) {
 module.exports = {
     name: Events.MessageCreate,
     async execute(message) {
-        var user = message.author;
-        if (!isAllowedUser(user.id)) {
-            return;
-        }
-
         var content = message.content;
 
         //most severe responses should be at the top;
         // so if a message contains multiple words, we check them
         // only once
         for (word in bannedWords) {
-            if (content.indexOf(word) >= 0) {
-                handleMessage(message, bannedWords[word]);
+            if (content.toLowerCase().indexOf(word) >= 0) {
+                handleBannedWord(message, bannedWords[word]);
                 break;
             }
         }
+
+        // TODO - other response if we want
     }
 };
