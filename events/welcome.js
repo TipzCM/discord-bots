@@ -24,7 +24,7 @@ module.exports = {
             .setColor('#6495ed');
         
         // this is our #general channel
-        guild.channels.cache.get('1176196328292888672')
+        guild.channels.cache.get('1268760802123579437')
             .send({
                 embeds: [welcome]
             })
